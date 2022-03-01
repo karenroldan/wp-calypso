@@ -1,3 +1,4 @@
+import { LOGO_SECTION_ID } from 'calypso/state/signup/steps/website-content/reducer';
 import { WebsiteContent } from 'calypso/state/signup/steps/website-content/schema';
 import { LogoUploadSection } from './logo-upload-section';
 import { CONTENT_SUFFIX, PageDetails } from './page-details';
@@ -75,7 +76,9 @@ const generateLogoSection = (
 			},
 			comment: 'This is the serial number: 1',
 		} ),
-		component: <LogoUploadSection logoUrl={ formValues.siteLogoUrl } />,
+		component: (
+			<LogoUploadSection sectionID={ LOGO_SECTION_ID } logoUrl={ formValues.siteLogoUrl } />
+		),
 		showSkip: true,
 		elapsedSections: elapsedSections + 1,
 	};
