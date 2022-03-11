@@ -729,7 +729,7 @@ class ThemeSheet extends Component {
 				<UpsellNudge
 					plan={ PLAN_WPCOM_MANAGED }
 					className="theme__page-upsell-banner"
-					title={ translate( 'Access this theme for FREE with a Managed plan!' ) }
+					title={ translate( 'Access this theme for FREE with a Pro plan!' ) }
 					description={ preventWidows(
 						translate(
 							'Instantly unlock all premium themes, more storage space, advanced customization, video support, and more when you upgrade.'
@@ -749,7 +749,7 @@ class ThemeSheet extends Component {
 				<UpsellNudge
 					plan={ PLAN_WPCOM_MANAGED }
 					className="theme__page-upsell-banner"
-					title={ translate( 'Access this theme for FREE with a Managed plan!' ) }
+					title={ translate( 'Access this theme for FREE with a Pro plan!' ) }
 					description={ preventWidows(
 						translate(
 							'Instantly unlock thousands of different themes and install your own when you upgrade.'

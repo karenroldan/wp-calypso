@@ -37,7 +37,7 @@ const ConnectedSingleSiteWpcom = connectOptions( ( props ) => {
 						event="calypso_themes_list_premium_themes"
 						feature={ FEATURE_PREMIUM_THEMES }
 						plan={ PLAN_WPCOM_MANAGED }
-						title={ translate( 'Unlock ALL premium themes with our Managed plan!' ) }
+						title={ translate( 'Unlock ALL premium themes with our Pro plan!' ) }
 						forceHref={ true }
 						showIcon={ true }
 					/>
@@ -64,7 +64,7 @@ const ConnectedSingleSiteWpcom = connectOptions( ( props ) => {
 					event="calypso_themes_list_install_themes"
 					feature={ FEATURE_UPLOAD_THEMES }
 					plan={ PLAN_BUSINESS }
-					title={ translate( 'Upload your own themes with our Managed plan!' ) }
+					title={ translate( 'Upload your own themes with our Pro plan!' ) }
 					forceHref={ true }
 					showIcon={ true }
 				/>
