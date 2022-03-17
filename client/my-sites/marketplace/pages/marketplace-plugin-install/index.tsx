@@ -267,7 +267,7 @@ const MarketplacePluginInstall = ( {
 						"Your current plan doesn't allow plugin installation. Please upgrade to Pro plan first."
 					) }
 					action={ translate( 'Upgrade to Pro Plan' ) }
-					actionURL={ `/checkout/${ selectedSite?.slug }/managed?redirect_to=/marketplace/${ productSlug }/install/${ selectedSite?.slug }#step2` }
+					actionURL={ `/checkout/${ selectedSite?.slug }/pro?redirect_to=/marketplace/${ productSlug }/install/${ selectedSite?.slug }#step2` }
 				/>
 			);
 		}

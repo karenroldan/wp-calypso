@@ -74,7 +74,7 @@ class Hosting extends Component {
 			<UpsellNudge
 				title={ translate( 'Upgrade to the Pro plan to access all hosting features' ) }
 				event="calypso_hosting_configuration_upgrade_click"
-				href={ `/checkout/${ siteId }/managed` }
+				href={ `/checkout/${ siteId }/pro` }
 				plan={ PLAN_WPCOM_PRO }
 				feature={ FEATURE_SFTP }
 				showIcon={ true }

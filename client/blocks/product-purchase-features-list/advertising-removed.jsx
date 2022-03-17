@@ -19,7 +19,7 @@ export default localize( ( { isEligiblePlan, selectedSite, translate } ) => {
 						  )
 				}
 				buttonText={ ! isEligiblePlan ? translate( 'Upgrade to Pro' ) : null }
-				href={ ! isEligiblePlan ? '/checkout/' + selectedSite.slug + '/managed' : null }
+				href={ ! isEligiblePlan ? '/checkout/' + selectedSite.slug + '/pro' : null }
 			/>
 		</div>
 	);

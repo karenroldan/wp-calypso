@@ -1,7 +1,7 @@
 import {
 	FEATURE_ADVANCED_SEO,
 	FEATURE_SEO_PREVIEW_TOOLS,
-	TYPE_MANAGED,
+	TYPE_PRO,
 	TYPE_BUSINESS,
 	findFirstSimilarPlanKey,
 	isWpComAnnualPlan,
@@ -258,7 +258,7 @@ export class SiteSettingsFormSEO extends Component {
 		// We don't have a monthly or a biennial counterparts for the Pro plan for now.
 		const wpcomUpsellPlanType =
 			selectedSite.plan &&
-			( isWpComAnnualPlan( selectedSite.plan.product_slug ) ? TYPE_MANAGED : TYPE_BUSINESS );
+			( isWpComAnnualPlan( selectedSite.plan.product_slug ) ? TYPE_PRO : TYPE_BUSINESS );
 
 		const upsellProps =
 			siteIsJetpack && ! isAtomic

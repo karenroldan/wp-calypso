@@ -201,7 +201,7 @@ class AdsWrapper extends Component {
 
 	renderUpsell() {
 		const { siteSlug, translate } = this.props;
-		const bannerURL = `/checkout/${ siteSlug }/managed`;
+		const bannerURL = `/checkout/${ siteSlug }/pro`;
 		return (
 			<UpsellNudge
 				callToAction={ translate( 'Upgrade' ) }

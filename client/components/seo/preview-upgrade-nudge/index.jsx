@@ -2,7 +2,7 @@ import {
 	findFirstSimilarPlanKey,
 	isWpComAnnualPlan,
 	TERM_ANNUALLY,
-	TYPE_MANAGED,
+	TYPE_PRO,
 	TYPE_BUSINESS,
 	TYPE_SECURITY_DAILY,
 	FEATURE_SEO_PREVIEW_TOOLS,
@@ -39,9 +39,7 @@ export const SeoPreviewNudge = ( {
 		} else {
 			upsellPlan = findFirstSimilarPlanKey(
 				site.plan.product_slug,
-				isWpComAnnualPlan( site.plan.product_slug )
-					? { type: TYPE_MANAGED }
-					: { type: TYPE_BUSINESS }
+				isWpComAnnualPlan( site.plan.product_slug ) ? { type: TYPE_PRO } : { type: TYPE_BUSINESS }
 			);
 		}
 	}

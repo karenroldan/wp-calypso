@@ -81,7 +81,7 @@ export default function WPCOMUpsellPage(): ReactElement {
 						cta={ {
 							text: translate( 'Upgrade to Pro Plan' ),
 							action: {
-								url: `/checkout/${ siteSlug }/managed`,
+								url: `/checkout/${ siteSlug }/pro`,
 								onClick: onUpgradeClick,
 								selfTarget: true,
 							},

@@ -1,6 +1,6 @@
 import {
 	findFirstSimilarPlanKey,
-	TYPE_MANAGED,
+	TYPE_PRO,
 	FEATURE_CLOUDFLARE_ANALYTICS,
 	FEATURE_GOOGLE_ANALYTICS,
 } from '@automattic/calypso-products';
@@ -122,7 +122,7 @@ export function CloudflareAnalyticsSettings( {
 		const nudgeTitle = translate( 'Available with Pro plan' );
 
 		const plan = findFirstSimilarPlanKey( site.plan.product_slug, {
-			type: TYPE_MANAGED,
+			type: TYPE_PRO,
 		} );
 
 		const nudge = (
