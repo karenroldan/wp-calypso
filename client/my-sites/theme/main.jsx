@@ -2,7 +2,7 @@ import config from '@automattic/calypso-config';
 import {
 	FEATURE_PREMIUM_THEMES,
 	FEATURE_UPLOAD_THEMES,
-	PLAN_WPCOM_MANAGED,
+	PLAN_WPCOM_PRO,
 } from '@automattic/calypso-products';
 import { Button, Card, Gridicon } from '@automattic/components';
 import { localizeUrl } from '@automattic/i18n-utils';
@@ -727,7 +727,7 @@ class ThemeSheet extends Component {
 		if ( hasWpComThemeUpsellBanner ) {
 			pageUpsellBanner = (
 				<UpsellNudge
-					plan={ PLAN_WPCOM_MANAGED }
+					plan={ PLAN_WPCOM_PRO }
 					className="theme__page-upsell-banner"
 					title={ translate( 'Access this theme for FREE with a Pro plan!' ) }
 					description={ preventWidows(
@@ -747,7 +747,7 @@ class ThemeSheet extends Component {
 		if ( hasWpOrgThemeUpsellBanner || hasThemeUpsellBannerAtomic ) {
 			pageUpsellBanner = (
 				<UpsellNudge
-					plan={ PLAN_WPCOM_MANAGED }
+					plan={ PLAN_WPCOM_PRO }
 					className="theme__page-upsell-banner"
 					title={ translate( 'Access this theme for FREE with a Pro plan!' ) }
 					description={ preventWidows(

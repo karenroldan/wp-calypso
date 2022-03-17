@@ -1,5 +1,5 @@
 import {
-	PLAN_WPCOM_MANAGED,
+	PLAN_WPCOM_PRO,
 	PLAN_JETPACK_SECURITY_DAILY,
 	FEATURE_WORDADS_INSTANT,
 	isPremium,
@@ -205,7 +205,7 @@ class AdsWrapper extends Component {
 		return (
 			<UpsellNudge
 				callToAction={ translate( 'Upgrade' ) }
-				plan={ PLAN_WPCOM_MANAGED }
+				plan={ PLAN_WPCOM_PRO }
 				title={ translate( 'Upgrade to the Pro plan and start earning' ) }
 				description={ translate(
 					"By upgrading to the Pro plan, you'll be able to monetize your site through the WordAds program."

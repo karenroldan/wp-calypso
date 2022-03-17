@@ -1,6 +1,5 @@
 import { localizeUrl } from '@automattic/i18n-utils';
-import { SelectItem, SelectItems } from '@automattic/onboarding';
-import { PLAN_BUSINESS, PLAN_ECOMMERCE, PLAN_WPCOM_MANAGED } from '@automattic/calypso-products';
+import { PLAN_BUSINESS, PLAN_ECOMMERCE, PLAN_WPCOM_PRO } from '@automattic/calypso-products';
 import { SelectItem, SelectItems } from '@automattic/onboarding';
 import { useTranslate } from 'i18n-calypso';
 import React from 'react';
@@ -80,7 +79,7 @@ export default function StoreFeaturesStep( props: Props ): React.ReactNode {
 	switch ( sitePlanSlug ) {
 		case PLAN_BUSINESS:
 		case PLAN_ECOMMERCE:
-		case PLAN_WPCOM_MANAGED:
+		case PLAN_WPCOM_PRO:
 			isEligiblePlan = true;
 			break;
 

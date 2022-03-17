@@ -1,13 +1,13 @@
 import { isEnabled } from '@automattic/calypso-config';
 import {
 	isBusiness,
-	isManaged,
+	isPro,
 	isWpComAnnualPlan,
 	isEcommerce,
 	isEnterprise,
 	findFirstSimilarPlanKey,
 	FEATURE_UPLOAD_PLUGINS,
-	TYPE_MANAGED,
+	TYPE_PRO,
 	TYPE_BUSINESS,
 } from '@automattic/calypso-products';
 import { Button } from '@automattic/components';
@@ -634,7 +634,7 @@ const UpgradeNudge = ( {
 	if (
 		! selectedSite?.ID ||
 		! sitePlan ||
-		isManaged( sitePlan ) ||
+		isPro( sitePlan ) ||
 		isVip ||
 		jetpackNonAtomic ||
 		hasBusinessPlan
@@ -649,7 +649,7 @@ const UpgradeNudge = ( {
 		// We currently only have the annual term for the pro plan
 		bannerURL = `/checkout/${ siteSlug }/managed`;
 		upsellPlan = findFirstSimilarPlanKey( sitePlan.product_slug, {
-			type: TYPE_MANAGED,
+			type: TYPE_PRO,
 		} );
 		upsellTitle = translate( 'Upgrade to the Pro plan to install plugins.' );
 	} else {

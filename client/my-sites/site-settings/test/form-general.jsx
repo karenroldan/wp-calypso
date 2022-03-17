@@ -19,7 +19,7 @@ import {
 	PLAN_PREMIUM_2_YEARS,
 	PLAN_PERSONAL,
 	PLAN_PERSONAL_2_YEARS,
-	PLAN_WPCOM_MANAGED,
+	PLAN_WPCOM_PRO,
 } from '@automattic/calypso-products';
 import { render, fireEvent } from '@testing-library/react';
 import { shallow } from 'enzyme';
@@ -104,7 +104,7 @@ describe( 'SiteSettingsFormGeneral', () => {
 					/>
 				);
 				expect( comp.find( 'UpsellNudge' ).length ).toBe( 1 );
-				expect( comp.find( 'UpsellNudge' ).props().plan ).toBe( PLAN_WPCOM_MANAGED );
+				expect( comp.find( 'UpsellNudge' ).props().plan ).toBe( PLAN_WPCOM_PRO );
 			} );
 		} );
 

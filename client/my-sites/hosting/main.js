@@ -1,4 +1,4 @@
-import { PLAN_WPCOM_MANAGED, FEATURE_SFTP } from '@automattic/calypso-products';
+import { PLAN_WPCOM_PRO, FEATURE_SFTP } from '@automattic/calypso-products';
 import { localize } from 'i18n-calypso';
 import { Component, Fragment } from 'react';
 import wrapWithClickOutside from 'react-click-outside';
@@ -75,7 +75,7 @@ class Hosting extends Component {
 				title={ translate( 'Upgrade to the Pro plan to access all hosting features' ) }
 				event="calypso_hosting_configuration_upgrade_click"
 				href={ `/checkout/${ siteId }/managed` }
-				plan={ PLAN_WPCOM_MANAGED }
+				plan={ PLAN_WPCOM_PRO }
 				feature={ FEATURE_SFTP }
 				showIcon={ true }
 			/>

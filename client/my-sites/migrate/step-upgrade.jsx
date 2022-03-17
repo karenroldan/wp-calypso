@@ -1,4 +1,4 @@
-import { getPlan, PLAN_WPCOM_MANAGED } from '@automattic/calypso-products';
+import { getPlan, PLAN_WPCOM_PRO } from '@automattic/calypso-products';
 import { CompactCard, ProductIcon, Gridicon } from '@automattic/components';
 import { localize } from 'i18n-calypso';
 import { get } from 'lodash';
@@ -127,7 +127,7 @@ class StepUpgrade extends Component {
 
 export default connect(
 	( state ) => {
-		const plan = getPlan( PLAN_WPCOM_MANAGED );
+		const plan = getPlan( PLAN_WPCOM_PRO );
 		const planId = plan.getProductId();
 
 		return {

@@ -1,6 +1,6 @@
 import {
 	getPlan,
-	PLAN_WPCOM_MANAGED,
+	PLAN_WPCOM_PRO,
 	PLAN_PERSONAL,
 	FEATURE_NO_ADS,
 } from '@automattic/calypso-products';
@@ -69,7 +69,7 @@ class DomainToPlanNudge extends Component {
 					translate( 'Access unlimited customer support via email' ),
 					translate( 'Use with your Current Custom Domain' ),
 				] }
-				plan={ PLAN_WPCOM_MANAGED }
+				plan={ PLAN_WPCOM_PRO }
 				price={ prices }
 				showIcon
 				title={ translate( 'Upgrade to a Pro Plan and Save!' ) }

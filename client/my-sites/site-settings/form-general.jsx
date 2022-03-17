@@ -1,10 +1,10 @@
 import {
 	isBusiness,
-	isManaged,
+	isPro,
 	isWpComAnnualPlan,
 	FEATURE_NO_BRANDING,
 	PLAN_BUSINESS,
-	PLAN_WPCOM_MANAGED,
+	PLAN_WPCOM_PRO,
 } from '@automattic/calypso-products';
 import { Card, CompactCard, Button, Gridicon } from '@automattic/components';
 import { guessTimezone } from '@automattic/i18n-utils';
@@ -637,9 +637,9 @@ export class SiteSettingsFormGeneral extends Component {
 		const upsellPlan =
 			site &&
 			! isBusiness( site.plan ) &&
-			! isManaged( site.plan ) &&
+			! isPro( site.plan ) &&
 			! siteIsVip &&
-			( isWpComAnnualPlan( site.plan.product_slug ) ? PLAN_WPCOM_MANAGED : PLAN_BUSINESS );
+			( isWpComAnnualPlan( site.plan.product_slug ) ? PLAN_WPCOM_PRO : PLAN_BUSINESS );
 
 		return (
 			<div className={ classNames( classes ) }>

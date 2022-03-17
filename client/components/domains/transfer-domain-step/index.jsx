@@ -1,4 +1,4 @@
-import { PLAN_WPCOM_MANAGED, isPlan } from '@automattic/calypso-products';
+import { PLAN_WPCOM_PRO, isPlan } from '@automattic/calypso-products';
 import { Button } from '@automattic/components';
 import { withShoppingCart } from '@automattic/shopping-cart';
 import classnames from 'classnames';
@@ -413,7 +413,7 @@ class TransferDomainStep extends Component {
 						description={ translate(
 							'Only .blog domains are included with your plan, to use a different tld upgrade to a Pro plan.'
 						) }
-						plan={ PLAN_WPCOM_MANAGED }
+						plan={ PLAN_WPCOM_PRO }
 						title={ translate( 'Pro plan required' ) }
 						showIcon={ true }
 					/>

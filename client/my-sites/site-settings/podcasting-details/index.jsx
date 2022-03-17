@@ -1,4 +1,4 @@
-import { PLAN_WPCOM_MANAGED, FEATURE_AUDIO_UPLOADS } from '@automattic/calypso-products';
+import { PLAN_WPCOM_PRO, FEATURE_AUDIO_UPLOADS } from '@automattic/calypso-products';
 import { Button, Card } from '@automattic/components';
 import classNames from 'classnames';
 import { localize } from 'i18n-calypso';
@@ -225,7 +225,7 @@ class PodcastingDetails extends Component {
 					</HeaderCake>
 					{ ! error && plansDataLoaded && (
 						<UpsellNudge
-							plan={ PLAN_WPCOM_MANAGED }
+							plan={ PLAN_WPCOM_PRO }
 							title={ translate( 'Upload Audio with WordPress.com Pro' ) }
 							description={ translate(
 								'Embed podcast episodes directly from your media library.'
