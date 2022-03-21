@@ -59,7 +59,7 @@ const Cloudflare = () => {
 					</CompactCard>
 					{ sitePlan && showBizUpsell && (
 						<UpsellNudge
-							title={ translate( 'Available on Pro plan' ) }
+							title={ translate( 'Available on the Pro plan' ) }
 							href={ upgradeLink }
 							event={ 'calypso_settings_cloudflare_cdn_upsell_nudge_click' }
 							showIcon={ true }
