@@ -1,4 +1,4 @@
-import { describe, expect, it, test } from '@jest/globals';
+import { describe, expect, it } from '@jest/globals';
 import { getTestAccountByFeature } from '../../../src/lib/utils/get-test-account-by-feature';
 import type { FeatureCriteria } from '../../../src/lib/utils/get-test-account-by-feature';
 
@@ -57,7 +57,7 @@ describe( 'getTestAccountByFeature', function () {
 		expect( accountName ).toBe( 'multipleFeaturesUndefinedRightAccountName' );
 	} );
 
-	test( 'order of attributes in the criteria should not matter', () => {
+	it( 'order of attributes in the criteria should not matter', () => {
 		// Objects are rebuilt internally so as to have their keys sorted. Two objects
 		// with the same attributes but in different order will be considered to
 		// be the exact same criterion.
@@ -89,8 +89,14 @@ describe( 'getTestAccountByFeature', function () {
 	} );
 
 	it( 'will throw en error if passed feature does not match an account', () => {
+		// Trying to maintain this test over time will be tedious if we stick to allowed values.
+		// We might not support a combination now, but may in the future, which would cause this test to fail.
+		// So, we use a bad value and override the typing to check the error throwing.
 		expect( () =>
-			getTestAccountByFeature( { gutenberg: 'edge', siteType: 'atomic' } )
+			getTestAccountByFeature( ( {
+				gutenberg: 'bad_value',
+				siteType: 'atomic',
+			} as unknown ) as FeatureCriteria )
 		).toThrowError();
 	} );
 
