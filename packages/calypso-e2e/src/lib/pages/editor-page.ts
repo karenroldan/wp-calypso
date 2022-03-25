@@ -9,7 +9,9 @@ import {
 	EditorSettingsSidebarComponent,
 	EditorGutenbergComponent,
 	NavbarComponent,
+	EditorInlineBlockInserterComponent,
 } from '../components';
+import { EditorSidebarBlockInserterComponent } from '../components/editor-sidebar-block-inserter-component';
 import type { PreviewOptions, EditorSidebarTab, PrivacyOptions, Schedule } from '../components';
 
 const selectors = {
@@ -29,6 +31,15 @@ const selectors = {
 };
 const EXTENDED_TIMEOUT = 90 * 1000;
 
+export type OpenInlineInserterDelegate = ( editor: Locator ) => Promise< void >;
+interface BlockInserter {
+	searchBlockInserter( blockName: string ): Promise< void >;
+	selectBlockInserterResult(
+		name: string,
+		options?: { type?: 'block' | 'pattern' }
+	): Promise< void >;
+}
+
 /**
  * Represents an instance of the WPCOM's Gutenberg editor page.
  */
@@ -41,6 +52,8 @@ export class EditorPage {
 	private editorToolbarComponent: EditorToolbarComponent;
 	private editorSettingsSidebarComponent: EditorSettingsSidebarComponent;
 	private editorGutenbergComponent: EditorGutenbergComponent;
+	private editorSidebarBlockInserterComponent: EditorSidebarBlockInserterComponent;
+	private editorInlineBlockInserterComponent: EditorInlineBlockInserterComponent;
 
 	/**
 	 * Constructs an instance of the component.
@@ -69,6 +82,14 @@ export class EditorPage {
 		this.editorSettingsSidebarComponent = new EditorSettingsSidebarComponent( page, this.editor );
 		this.editorPublishPanelComponent = new EditorPublishPanelComponent( page, this.editor );
 		this.editorNavSidebarComponent = new EditorNavSidebarComponent( page, this.editor );
+		this.editorSidebarBlockInserterComponent = new EditorSidebarBlockInserterComponent(
+			page,
+			this.editor
+		);
+		this.editorInlineBlockInserterComponent = new EditorInlineBlockInserterComponent(
+			page,
+			this.editor
+		);
 	}
 
 	/* Generic methods */
@@ -152,6 +173,17 @@ export class EditorPage {
 		return ( await elementHandle?.contentFrame() ) as Frame;
 	}
 
+	// TODO: in the future, this should replace the handle method above, as everything should be based on locators.
+	/**
+	 * Get a pointer to the top-level editor locator.
+	 * This allows you a frame-safe way to start creating locators for other actions with the editor.
+	 *
+	 * @returns A pointer to frame-safe, top-level locator within the editor.
+	 */
+	getEditorLocator(): Locator {
+		return this.editor;
+	}
+
 	/**
 	 * Closes all panels that can be opened in the editor.
 	 *
@@ -212,7 +244,7 @@ export class EditorPage {
 	}
 
 	/**
-	 * Adds a Gutenberg block from the block inserter panel.
+	 * Adds a Gutenberg block from the sidebar block inserter panel.
 	 *
 	 * The name is expected to be formatted in the same manner as it
 	 * appears on the label when visible in the block inserter panel.
@@ -228,11 +260,13 @@ export class EditorPage {
 	 *
 	 * @param {string} blockName Name of the block to be inserted.
 	 */
-	async addBlock( blockName: string, blockEditorSelector: string ): Promise< ElementHandle > {
+	async addBlockFromSidebar(
+		blockName: string,
+		blockEditorSelector: string
+	): Promise< ElementHandle > {
 		await this.editorGutenbergComponent.resetSelectedBlock();
 		await this.editorToolbarComponent.openBlockInserter();
-		await this.editorGutenbergComponent.searchBlockInserter( blockName );
-		await this.editorGutenbergComponent.selectBlockInserterResult( blockName );
+		await this.addBlockFromInserter( blockName, this.editorSidebarBlockInserterComponent );
 
 		const blockHandle = await this.editorGutenbergComponent.getSelectedBlockElementHandle(
 			blockEditorSelector
@@ -251,7 +285,60 @@ export class EditorPage {
 	}
 
 	/**
-	 * Adds a pattern from the block inserter panel.
+	 * Adds a Gutenberg block from the inline block inserter.
+	 *
+	 * Because there are so many different ways to open the inline inserter, this function accepts a delegate to run first
+	 * that should open the inserter. This allows specs to get to the inserter in the way they need.
+	 *
+	 * The block name is expected to be formatted in the same manner as it
+	 * appears on the label when visible in the block inserter panel.
+	 *
+	 * Example:
+	 * 		- Click to Tweet
+	 * 		- Pay with Paypal
+	 * 		- SyntaxHighlighter Code
+	 *
+	 * The block editor selector should select the top level element of a block in the editor.
+	 * For reference, this element will almost always have the ".wp-block" class.
+	 * We recommend using the aria-label for the selector, e.g. '[aria-label="Block: Quote"]'.
+	 *
+	 * @param {string} blockName Name of the block as in inserter results.
+	 * @param {string} blockEditorSelector Selector to find the block once added.
+	 * @param {OpenInlineInserterDelegate} openInserter Delegate to open the inline inserter.
+	 * @returns An element handle to the added block.
+	 */
+	async addBlockInline(
+		blockName: string,
+		blockEditorSelector: string,
+		openInserter: OpenInlineInserterDelegate
+	): Promise< ElementHandle > {
+		await openInserter( this.editor );
+		await this.addBlockFromInserter( blockName, this.editorInlineBlockInserterComponent );
+
+		const blockHandle = await this.editorGutenbergComponent.getSelectedBlockElementHandle(
+			blockEditorSelector
+		);
+		// Return an ElementHandle pointing to the block for compatibility
+		// with existing specs.
+		return blockHandle;
+	}
+
+	/**
+	 * Shared submethod to insert a block from a block inserter.
+	 *
+	 * @param {string} blockName Name of the block.
+	 * @param {BlockInserter} inserter A block inserter component.
+	 */
+	private async addBlockFromInserter(
+		blockName: string,
+		inserter: BlockInserter
+	): Promise< void > {
+		await inserter.searchBlockInserter( blockName );
+		await inserter.selectBlockInserterResult( blockName );
+	}
+
+	/**
+	 * Adds a pattern from the sidebar block inserter panel.
 	 *
 	 * The name is expected to be formatted in the same manner as it
 	 * appears on the label when visible in the block inserter panel.
@@ -261,13 +348,47 @@ export class EditorPage {
 	 *
 	 * @param {string} patternName Name of the pattern to insert.
 	 */
-	async addPattern( patternName: string ): Promise< void > {
+	async addPatternFromSidebar( patternName: string ): Promise< void > {
 		await this.editorGutenbergComponent.resetSelectedBlock();
 		await this.editorToolbarComponent.openBlockInserter();
-		await this.editorGutenbergComponent.searchBlockInserter( patternName );
-		await this.editorGutenbergComponent.selectBlockInserterResult( patternName, {
-			type: 'pattern',
-		} );
+		await this.addPatternFromInserter( patternName, this.editorSidebarBlockInserterComponent );
+	}
+
+	/**
+	 * Adds a pattern from the inline block inserter panel.
+	 *
+	 * Because there are so many different ways to open the inline inserter, this function accepts a delegate to run first
+	 * that should open the inserter. This allows specs to get to the inserter in the way they need.
+	 *
+	 * The name is expected to be formatted in the same manner as it
+	 * appears on the label when visible in the block inserter panel.
+	 *
+	 * Example:
+	 * 		- Two images side by side
+	 *
+	 * @param {string} patternName Name of the pattern to insert as it matches the label in the inserter.
+	 * @param {OpenInlineInserterDelegate} openInserter Delegate to open the inline inserter.
+	 */
+	async addPatternInline(
+		patternName: string,
+		openInserter: OpenInlineInserterDelegate
+	): Promise< void > {
+		await openInserter( this.editor );
+		await this.addPatternFromInserter( patternName, this.editorInlineBlockInserterComponent );
+	}
+
+	/**
+	 * Shared submethod to insert a pattern from a block inserter (sidebar or inline).
+	 *
+	 * @param {string} patternName Name of the pattern.
+	 * @param {BlockInserter} inserter Block inserter component.
+	 */
+	private async addPatternFromInserter(
+		patternName: string,
+		inserter: BlockInserter
+	): Promise< void > {
+		await inserter.searchBlockInserter( patternName );
+		await inserter.selectBlockInserterResult( patternName, { type: 'pattern' } );
 
 		const insertConfirmationToastLocator = this.editor.locator(
 			`.components-snackbar__content:text('Block pattern "${ patternName }" inserted.')`

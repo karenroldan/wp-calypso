@@ -44,7 +44,7 @@ describe( DataHelper.createSuiteTitle( 'CoBlocks: Extensions: Cover Styles' ), (
 	} );
 
 	it( 'Insert Cover block', async () => {
-		const blockHandle = await editorPage.addBlock(
+		const blockHandle = await editorPage.addBlockFromSidebar(
 			CoverBlock.blockName,
 			CoverBlock.blockEditorSelector
 		);
